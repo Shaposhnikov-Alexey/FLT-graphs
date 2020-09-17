@@ -5,11 +5,11 @@ Repository for assignments from Formal Language Theory course
 
 *First assignment*
 
-[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_1)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
+[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=master)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
 
 *Second assignment*
 
-[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_2)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
+[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_2_re)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
 
 ## Install
 
