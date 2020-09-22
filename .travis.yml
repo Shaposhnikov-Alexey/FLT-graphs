@@ -12,6 +12,8 @@ install:
   - conda update -q conda
   - conda config --add channels conda-forge
   - conda info -a
+  - export PYTHONPATH="${PYTHONPATH}:./"
+
 
   - conda create -q -n ftl-env python=$TRAVIS_PYTHON_VERSION --file requirements_conda.txt
   - conda activate ftl-env
