@@ -32,9 +32,9 @@ class Graph:
             for j in other.final_states:
                 resulted_graph.final_states.append(i * self.size + j)
 
-        # for label in resulted_graph.label_dictionary:
-        #     print(label, ": ", resulted_graph.label_dictionary[label].nvals)
-        # print("\n\n")
+        for label in resulted_graph.label_dictionary:
+            print(label, ": ", resulted_graph.label_dictionary[label].nvals)
+        print("\n\n")
         return resulted_graph
 
     def get_reachability(self, args):

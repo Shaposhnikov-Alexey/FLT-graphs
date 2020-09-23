@@ -52,7 +52,8 @@ def test_little():
 
     result = graph.intersect_with(automaton)
     args = {"type": 1, "from": [1, 2]}
-    paths_matrix = result.get_reachability(args)
+    paths_matrix = Matrix.sparse(BOOL, 4, 4).full(0)
+    paths_matrix += result.get_reachability(args)
     set_of_reachable = [(0, 1), (0, 2), (1, 2)]
     for i in range(result.size):
         for j in range(result.size):
