@@ -15,8 +15,8 @@ Repository for assignments from Formal Language Theory course
 
 ```bash
 conda config --append channels conda-forge
-conda create -q -n ftl-env --file requirements_conda.txt
-conda activate ftl-env
+conda create -q -n flt-env --file requirements_conda.txt
+conda activate flt-env
 
 export PYTHONPATH="${PYTHONPATH}:./"
 
@@ -30,11 +30,14 @@ To run tests
 pytest
 ```
 
+#### Analysis
+To see experimental analysis of performance for transitive closure (squaring and adjency matrix), check report_assignment_3.pdf
+
 # API
 #### 1) Intersection 
 - **returns** labels and their occurrences in the intersection received from specified graph and regexp
 - **'from'** and **'to'** parameters will be supported later
 ```bash
-python src/main/main.py {graph_path.txt} {regexpt_path.txt}
+python3 src/main/main.py {graph_path.txt} {regexpt_path.txt}
 ```
 

@@ -32,18 +32,18 @@ class Graph:
             for j in other.final_states:
                 resulted_graph.final_states.append(i * self.size + j)
 
-        for label in resulted_graph.label_dictionary:
-            print(label, ": ", resulted_graph.label_dictionary[label].nvals)
-        print("\n\n")
+        # for label in resulted_graph.label_dictionary:
+        #     print(label, ": ", resulted_graph.label_dictionary[label].nvals)
+        # print("\n\n")
         return resulted_graph
 
     def get_reachability(self, args):
         # create null matrix and adjust labels' matrices to its size
-        output = Matrix.random(BOOL, self.size, self.size, 0).full(0)
+        output = Matrix.sparse(BOOL, self.size, self.size)
         for label in self.label_dictionary:
             if self.label_dictionary[label].nrows < self.size:
                 self.label_dictionary[label].resize(self.size, self.size)
-            output = output | self.label_dictionary[label]
+            output += self.label_dictionary[label]
         output = transitive_closure(output)
 
         if args["type"] == 2:  # from sources to all reachability
@@ -63,6 +63,7 @@ class Graph:
             return output
         else:  # all-to-all reachability
             return output
+
 
     @staticmethod
     def from_file(path):
