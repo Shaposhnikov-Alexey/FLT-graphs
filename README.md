@@ -11,6 +11,10 @@ Repository for assignments from Formal Language Theory course
 
 [![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_2_re)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
 
+*Fourth assignment*
+
+[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_4)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
+
 ## Install
 
 ```bash

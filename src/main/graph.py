@@ -13,6 +13,11 @@ class Graph:
         # label_dictionary matches boolean matrix to a label
         self.label_dictionary = {}
 
+    def get_edges(self, label):
+        return zip(*self.label_dictionary[label]
+                   .select(lib.GxB_GE_ZERO)
+                   .to_lists()[:2])
+
     def intersect_with(self, other):
         resulted_graph = Graph()
 
@@ -21,7 +26,7 @@ class Graph:
             if label in other.label_dictionary:
                 #  tensor multiplication
                 resulted_graph.label_dictionary[label] = self.label_dictionary[label].kronecker(
-                                                                         other.label_dictionary[label])
+                    other.label_dictionary[label])
 
         resulted_graph.size = self.size * other.size
 
@@ -63,7 +68,6 @@ class Graph:
             return output
         else:  # all-to-all reachability
             return output
-
 
     @staticmethod
     def from_file(path):
