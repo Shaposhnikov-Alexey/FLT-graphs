@@ -4,7 +4,7 @@ from pygraphblas import Matrix, BOOL
 from src.main.graph import Graph
 
 
-class CFPQ:
+class GrammarUtils:
     @staticmethod
     def to_cnf(cfg):
         if cfg.generate_epsilon():
@@ -65,8 +65,8 @@ class CFPQ:
         return cnf.start_symbol in table[0][word_size - 1]
 
     @staticmethod
-    def hellings(grammar: CFG, graph: Graph):
-        cfg = CFPQ.to_cnf(grammar)
+    def cfpq(grammar: CFG, graph: Graph):
+        cfg = GrammarUtils.to_cnf(grammar)
         graph_size = graph.size
         start_sym = cfg.start_symbol
         result = Graph()
