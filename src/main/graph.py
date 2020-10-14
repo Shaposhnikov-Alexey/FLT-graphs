@@ -10,6 +10,7 @@ class Graph:
         # unless it is set the other way, start and final states include all of the vertices
         self.start_states = []
         self.final_states = []
+        self.vertices = set()
         # label_dictionary matches boolean matrix to a label
         self.label_dictionary = {}
 
@@ -89,6 +90,9 @@ class Graph:
                     boolean_matrix = Matrix.sparse(BOOL, size, size)
                     boolean_matrix[from_, to] = 1
                     graph.label_dictionary[label] = boolean_matrix
+                graph.vertices.add(from_)
+                graph.vertices.add(to)
+
         for vertex in range(graph.size):
             graph.start_states.append(vertex)
             graph.final_states.append(vertex)
@@ -122,6 +126,8 @@ class Graph:
                         boolean_matrix = Matrix.sparse(BOOL, graph.size, graph.size)
                         boolean_matrix[dfa_states[state], dfa_states[out_state]] = 1
                         graph.label_dictionary[symbol] = boolean_matrix
+                    graph.vertices.add(dfa_states[state])
+                    graph.vertices.add(dfa_states[out_state])
 
         # sync start and final states
         graph.start_states = [dfa_states[dfa.start_state]]

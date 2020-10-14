@@ -15,6 +15,11 @@ Repository for assignments from Formal Language Theory course
 
 [![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_4)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
 
+*Fifth assignment*
+
+[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_5)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
+
+
 ## Install
 
 ```bash
@@ -35,13 +40,5 @@ pytest
 ```
 
 #### Analysis
-To see experimental analysis of performance for transitive closure (squaring and adjency matrix), check report_assignment_3.pdf
-
-# API
-#### 1) Intersection 
-- **returns** labels and their occurrences in the intersection received from specified graph and regexp
-- **'from'** and **'to'** parameters will be supported later
-```bash
-python3 src/main/main.py {graph_path.txt} {regexpt_path.txt}
-```
+To see experimental analysis of performance for transitive closure (squaring and adjency matrix), check report_assignment_3.pdf in **reports** directory
 

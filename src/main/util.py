@@ -16,6 +16,10 @@ def transitive_closure(matrix) -> Matrix:
 
     return result
 
+
+def get_reachable(matrix):
+    return zip(*matrix.select(lib.GxB_NONZERO).to_lists()[:2])
+
 # def transitive_closure(matrix) -> Matrix:
 #     result = matrix.dup()
 #     continue_mul = True
