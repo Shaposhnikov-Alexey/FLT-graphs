@@ -2,9 +2,10 @@ from pyformlang.cfg import CFG, Variable, Terminal, Production
 from pygraphblas import Matrix, BOOL, semiring
 
 from src.main.graph import Graph
+from collections import deque
+from src.main.graph_wrapper import GraphWrapper
 from src.main.rfa import RFA
 from src.main.util import transitive_closure, get_reachable
-from src.main.graph_wrapper import GraphWrapper
 
 
 class GrammarUtils:
@@ -73,8 +74,13 @@ class GrammarUtils:
         start_sym = cfg.start_symbol
         result = Graph()
         result.size = graph_size
+        m = deque()
         for variable in cfg.variables:
             result.label_dictionary[variable] = Matrix.sparse(BOOL, graph_size, graph_size)
+
+        if cfg.generate_epsilon():
+            for vertex in range(graph_size):
+                result.label_dictionary[start_sym][vertex, vertex] = 1
 
         for label in graph.label_dictionary:
             terminal = Terminal(label)
@@ -85,23 +91,36 @@ class GrammarUtils:
                         head = production.head
                         result.label_dictionary[head][from_vertex, to_vertex] = 1
 
-        if cfg.generate_epsilon():
-            for vertex in range(graph_size):
-                result.label_dictionary[start_sym][vertex, vertex] = 1
+        for label in result.label_dictionary:
+            for i, j in result.get_edges(label):
+                m.append((label, i, j))
 
-        matrix_changing = True
-        while matrix_changing:
-            matrix_changing = False
-            for production in cfg.productions:
-                head = production.head
-                body = production.body
-                if len(body) == 2:
-                    for (i, m) in result.get_edges(body[0]):
-                        for (k, j) in result.get_edges(body[1]):
-                            if k == m:
-                                if (i, j) not in result.get_edges(head):
-                                    matrix_changing = True
-                                    result.label_dictionary[head][i, j] = 1
+        terminal_productions = set()
+        nonterminal_productions = set()
+        for production in cfg.productions:
+            if len(production.body) == 1:
+                terminal_productions.add(production)
+            elif len(production.body) >= 2:
+                nonterminal_productions.add(production)
+
+        while m:
+            var, v, u = m.popleft()
+            for var_left in result.label_dictionary:
+                for v_new, v_ in result.get_edges(var_left):
+                    if v_ == v:
+                        for production in nonterminal_productions:
+                            if production.body[1] == var and production.body[0] == var_left:
+                                if (v_new, u) not in result.get_edges(production.head):
+                                    result.label_dictionary[production.head][v_new, u] = True
+                                    m.append((production.head, v_new, u))
+            for var_right in result.label_dictionary:
+                for u_, u_new in result.get_edges(var_right):
+                    if u_ == u:
+                        for production in nonterminal_productions:
+                            if production.body[1] == var_right and production.body[0] == var:
+                                if (v, u_new) not in result.get_edges(production.head):
+                                    result.label_dictionary[production.head][v, u_new] = True
+                                    m.append((production.head, v, u_new))
 
         return result.label_dictionary[start_sym]
 
@@ -130,11 +149,19 @@ class GrammarUtils:
             for vertex in graph.vertices:
                 result.label_dictionary[start_symbol][vertex, vertex] = 1
 
+        terminal_productions = set()
+        nonterminal_productions = set()
+        for production in grammar.productions:
+            if len(production.body) == 1:
+                terminal_productions.add(production)
+            elif len(production.body) >= 2:
+                nonterminal_productions.add(production)
+
         matrix_changing = True
         with semiring.LOR_LAND_BOOL:
             while matrix_changing:
                 matrix_changing = False
-                for production in grammar.productions:
+                for production in nonterminal_productions:
                     head = production.head
                     body = production.body
                     if len(body) == 2:
