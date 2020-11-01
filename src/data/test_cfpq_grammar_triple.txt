@@ -1,7 +1,4 @@
 S A B C
-A a A
-A eps
-B b B
-B eps
-C c C
-C eps
+A (a A)?
+B (b B)?
+C (c C)?
