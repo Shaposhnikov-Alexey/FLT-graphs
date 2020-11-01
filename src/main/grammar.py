@@ -4,6 +4,7 @@ from pygraphblas import Matrix, BOOL, semiring
 from src.main.graph import Graph
 from src.main.rfa import RFA
 from src.main.util import transitive_closure, get_reachable
+from src.main.graph_wrapper import GraphWrapper
 
 
 class GrammarUtils:
@@ -26,7 +27,7 @@ class GrammarUtils:
         return cfg.to_normal_form()
 
     @staticmethod
-    def from_file(path) -> CFG:
+    def from_file(path) -> GraphWrapper:
         productions = []
 
         with open(path, 'r') as file:
@@ -35,8 +36,7 @@ class GrammarUtils:
                 current_production = raw_current_production[0] + ' -> ' + ' '.join(raw_current_production[1:])
                 productions.append(current_production)
 
-        productions = '\n'.join(productions)
-        return CFG.from_text(productions)
+        return GraphWrapper.from_text('\n'.join(productions))
 
     @staticmethod
     def cyk(cnf, word):
