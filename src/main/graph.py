@@ -75,7 +75,8 @@ class Graph:
         graph = Graph()
         with open(path, 'r') as file:
             for line in file:
-                (from_, label, to) = line.split(' ')
+                ln = line.rstrip('\n')
+                (from_, label, to) = line.rstrip('\n').rstrip().split(' ')
                 from_ = int(from_)
                 to = int(to)
 
