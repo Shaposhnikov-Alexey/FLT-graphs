@@ -51,4 +51,20 @@ To see experimental analysis of performance for CFPQ with matrix multiplication,
 To see experimental data for CFPQ analysis, check [google drive](https://drive.google.com/drive/folders/1yghCOVHcOqG4TTsLqcp4UnIpfwx_ZCxv?usp=sharing])
 
 ## Script graph database queries language's syntax
+There are 3 statements you can use in script. They are divided by new line, tokens and keywords - with white space. Note that *parentheses should be separated with white space*!
 
+Allowed type of strings is: ```(/, ., _, 0-9, a-z)```.
+
+Available commands are:
+
+- ** `connect "[db_name]"`** - set database directory
+    - ` connect "/src/data" `
+
+- `[production_head] : [production_body]` - adds production to grammar which is being saved and can be called as a Graph - for intersection or selecting. Body can be a regular expression with keywords **{ } alt; { } opt; { } plus; { } star", you can also use special eps symbol - "e" 
+
+    #### Examples: ```
+      a: term (a) star concat term (b)
+      c: nonterm (b) star
+      f: nonterm (b) alt nonterm (c) star concat term (s)
+      d: e
+        ```
