@@ -19,6 +19,10 @@ Repository for assignments from Formal Language Theory course
 
 [![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_5)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
 
+*Seventh assignment*
+
+[![Build Status](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs.svg?branch=assignment_7)](https://travis-ci.org/Shaposhnikov-Alexey/FLT-graphs)
+
 
 ## Install
 
@@ -45,3 +49,6 @@ To see experimental analysis of performance for transitive closure (squaring and
 To see experimental analysis of performance for CFPQ with matrix multiplication, CFPQ with tensor production, CFPQ with tensor production and optimized grammar, Hellings algo, check report_assignment_6.pdf in **src/reports** directory
 
 To see experimental data for CFPQ analysis, check [google drive](https://drive.google.com/drive/folders/1yghCOVHcOqG4TTsLqcp4UnIpfwx_ZCxv?usp=sharing])
+
+## Script graph database queries language's syntax
+

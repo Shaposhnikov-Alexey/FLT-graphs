@@ -53,11 +53,8 @@ class Grammar_Wrapper(CFG):
                     inner_body.append(Epsilon())
                 elif symbol.value.isupper():
                     inner_body.append(Variable(symbol))
-                elif symbol.value.islower():
-                    inner_body.append(Terminal(symbol))
                 else:
-                    raise ValueError(f'''Symbol "{symbol}" is not defined as
-                                    a terminal or a variable''')
+                    inner_body.append(Terminal(symbol))
 
                 inner_body.append(_dict[body_state])
                 production_set.add(
@@ -77,7 +74,7 @@ class Grammar_Wrapper(CFG):
         for line in lines:
             production = line.split(' -> ')
             head = Variable(production[0])
-            body_str = production[1].rstrip('\n')
+            body_str = production[1].strip()
 
             body_str = body_str.replace('?', f'|{EPS_SYM}')
 
