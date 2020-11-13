@@ -57,14 +57,43 @@ Allowed type of strings is: ```(/, ., _, 0-9, a-z)```.
 
 Available commands are:
 
-- ** `connect "[db_name]"`** - set database directory
+- `connect "[db_name]"` - set database directory
     - ` connect "/src/data" `
+
+- `select [object] from [graph]` - get queried info from graph
+    - `[object]` can be **count**, **edges** or **filter**. **Count** returns number of edges; **edges** return all triples (u, lbl, v) from graph; **filter** filters with defined condition `[BOOL_EXPR]'
+    - `[BOOL_EXPR]` is one or combination of:
+        - `isStart [vert]`
+        - `isFinal [vert]` 
+        - `[edge] labelIs [label]`
+
+    - `[graph]` can be invoked with given name, grammar, regex or graph intersection
+        - `"[graph_name]"` loads a graph file from connected database
+        - `grammar` invokes saved grammar with defined productions (see below)
+        - `[pattern]` will take regex of a given pattern 
+        - `[graph] intersect [other_graph]` takes intersection
+        - `setStartAndFinal ([vertices] ; [vertices]) [graph]` will take a graph with specified start and final vertices
+            - `[vertices]` can be represented in following formats:
+                - `1, 2, 3, ...` -  set
+                - `n , m` - range
+                - `none` 
+
+    #### Examples:
+    ``` 
+    select count edges from setStartAndFinal (1, 2, 3 ; 4, 5, 6) name "graph" intersect query term (a) star concat term (b) plus
+    select edges from name "graph" intersect query nonterm (a) concat nonterm (b) plus
+   select filter edges with (1, edge, 2) satisfies 1 labelIs first and not 2 labelIs first from name "graph"
+  select filter edges with (1, edge, 2) satisfies 1 labelIs first from name "graph"
+  select filter edges with (24, edge, 26) satisfies 24 labelIs first and not 26 labelIs first or isFinal 26 
+                from name "graph" intersect grammar
+   select count edges from setStartAndFinal ( range  4 , 5 ; none ) name "graph" intersect name "other_graph"
+  ```
 
 - `[production_head] : [production_body]` - adds production to grammar which is being saved and can be called as a Graph - for intersection or selecting. Body can be a regular expression with keywords **{ } alt; { } opt; { } plus; { } star", you can also use special eps symbol - "e" 
 
-    #### Examples: ```
+    #### Examples: 
       a: term (a) star concat term (b)
       c: nonterm (b) star
       f: nonterm (b) alt nonterm (c) star concat term (s)
       d: e
-        ```
+        
