@@ -58,7 +58,8 @@ Allowed type of strings is: ```(/, ., _, 0-9, a-z)```.
 Available commands are:
 
 - `connect "[db_name]"` - set database directory
-    - ` connect "/src/data" `
+    #### Example:
+    ` connect "/src/data" `
 
 - `select [object] from [graph]` - get queried info from graph
     - `[object]` can be **count**, **edges** or **filter**. **Count** returns number of edges; **edges** return all triples (u, lbl, v) from graph; **filter** filters with defined condition `[BOOL_EXPR]'
