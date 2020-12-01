@@ -1,0 +1,27 @@
+S STMT S | eps
+STMT connect " STRING "
+STMT STRING : PATTERN
+STMT select OBJ_EXPR from GRAPH
+GRAPH GRAPH intersect GRAPH'
+GRAPH GRAPH'
+GRAPH' \( GRAPH \) | grammar | query PATTERN | name " STRING " | setStartAndFinal \( VERTICES ; VERTICES \) GRAPH
+PATTERN CT_PATTERN alt PATTERN | CT_PATTERN
+CT_PATTERN PT concat CT_PATTERN | PT
+PT PT opt | PT plus | PT star | VALUE | \( PT \)
+VALUE term \( STRING \) | nonterm \( STRING \) | e
+VERTICES  SET  | range  INT , INT  | none
+SET INT LIST
+LIST , SET | eps
+OBJ_EXPR EDGES | count EDGES
+EDGES edges | filter EDGES with PRED
+PRED \( VERT , EDGE , VERT \) satisfies BOOL_EXPR
+BOOL_EXPR BOOL_AND or BOOL_EXPR | BOOL_AND
+BOOL_AND BOOL and BOOL_AND | BOOL
+BOOL not BOOL_TERM | BOOL_TERM
+BOOL_TERM EDGE labelIs STRING | isStart VERT | isFinal VERT | \( BOOL_TERM \)
+VERT STRING
+EDGE STRING
+STRING  ( SPECCHAR | CHAR | INT )*
+INT (1|2|3|4|5|6|7|8|9).(0|1|2|3|4|5|6|7|8|9)*
+SPECCHAR (\.|_|/)
+CHAR (a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z)
