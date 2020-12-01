@@ -12,13 +12,13 @@ get_new_var_num.calls = 0
 EPS_SYM = 'eps'
 
 
-class GraphWrapper(CFG):
+class Grammar_Wrapper(CFG):
     def __init__(self,
                  variables=None,
                  terminals=None,
                  start_symbol=None,
                  productions=None):
-        super(GraphWrapper, self).__init__(
+        super(Grammar_Wrapper, self).__init__(
             variables=variables,
             terminals=terminals,
             start_symbol=start_symbol,
@@ -53,11 +53,8 @@ class GraphWrapper(CFG):
                     inner_body.append(Epsilon())
                 elif symbol.value.isupper():
                     inner_body.append(Variable(symbol))
-                elif symbol.value.islower():
-                    inner_body.append(Terminal(symbol))
                 else:
-                    raise ValueError(f'''Symbol "{symbol}" is not defined as
-                                    a terminal or a variable''')
+                    inner_body.append(Terminal(symbol))
 
                 inner_body.append(_dict[body_state])
                 production_set.add(
@@ -75,14 +72,13 @@ class GraphWrapper(CFG):
         production_set = set()
 
         for line in lines:
-            print(line)
             production = line.split(' -> ')
             head = Variable(production[0])
-            body_str = production[1].rstrip('\n')
+            body_str = production[1].strip()
 
             body_str = body_str.replace('?', f'|{EPS_SYM}')
 
-            production_set |= GraphWrapper.regex_to_production(
+            production_set |= Grammar_Wrapper.regex_to_production(
                 Regex(body_str),
                 head
             )

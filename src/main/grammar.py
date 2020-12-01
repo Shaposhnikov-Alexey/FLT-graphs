@@ -3,7 +3,7 @@ from pygraphblas import Matrix, BOOL, semiring
 
 from src.main.graph import Graph
 from collections import deque
-from src.main.graph_wrapper import GraphWrapper
+from src.main.graph_wrapper import Grammar_Wrapper
 from src.main.rfa import RFA
 from src.main.util import transitive_closure, get_reachable
 
@@ -28,7 +28,7 @@ class GrammarUtils:
         return cfg.to_normal_form()
 
     @staticmethod
-    def from_file(path) -> GraphWrapper:
+    def from_file(path) -> Grammar_Wrapper:
         productions = []
 
         with open(path, 'r') as file:
@@ -37,7 +37,7 @@ class GrammarUtils:
                 current_production = raw_current_production[0] + ' -> ' + ' '.join(raw_current_production[1:])
                 productions.append(current_production)
 
-        return GraphWrapper.from_text('\n'.join(productions))
+        return Grammar_Wrapper.from_text('\n'.join(productions))
 
     @staticmethod
     def cyk(cnf, word):
