@@ -1,0 +1,15 @@
+connect "src/data/graph.txt";
+
+def s: nonterm (b) star concat term (f) opt;
+def f: nonterm (a) alt nonterm (b) concat term (q);
+def q: nonterm(c)*;
+
+select filter edges with (24, edge, 26)
+    satisfies (24 labelIs first)
+        and not (26 labelIs first or isFinal 26)
+            from name "graph";
+
+select count filter edges
+    with (first, label, second)
+        satisfies (isStart first  or isFinal second)
+            from name "grammar_1";
