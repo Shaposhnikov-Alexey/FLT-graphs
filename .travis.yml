@@ -22,5 +22,5 @@ install:
 
   - python3 -m pip install -r requirements_pip.txt
 script:
-  - cd src/antlr && antlr4 -Dlanguage=Python3 db_grammar.g4 && cd ../ ../
+  - cd src/antlr && antlr4 -Dlanguage=Python3 db_grammar.g4 && cd ../../
   - python -m pytest
